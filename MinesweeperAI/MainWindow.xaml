@@ -1,8 +1,10 @@
 ﻿<Window x:Class="MinesweeperAI.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="MainWindow" Height="350" Width="525">
+        Title="MainWindow" Height="216.667" Width="245.667">
     <Grid>
-        
+        <Label Content="Pick a board to solve" HorizontalAlignment="Left" Margin="58,52,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="Solve" Content="Solve" HorizontalAlignment="Left" Margin="81,97,0,0" VerticalAlignment="Top" Width="75" Click="solveButtonClick"/>
+
     </Grid>
 </Window>

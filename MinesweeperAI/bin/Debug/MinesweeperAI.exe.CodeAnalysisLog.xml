@@ -8,12 +8,12 @@
      <Namespaces>
       <Namespace Name="MinesweeperAI">
        <Types>
-        <Type Name="MainWindow+NativeMethods" Kind="Class" Accessibility="Private" ExternallyVisible="False">
+        <Type Name="UIAutomation+NativeMethods" Kind="Class" Accessibility="Private" ExternallyVisible="False">
          <Members>
-          <Member Name="#GetWindowRect(System.IntPtr,MinesweeperAI.MainWindow+NativeMethods+Rect&amp;)" Kind="Method" Static="True" Accessibility="Public" ExternallyVisible="False">
+          <Member Name="#GetWindowRect(System.IntPtr,MinesweeperAI.UIAutomation+NativeMethods+Rect&amp;)" Kind="Method" Static="True" Accessibility="Public" ExternallyVisible="False">
            <Messages>
-            <Message Id="return" TypeName="PInvokeDeclarationsShouldBePortable" Category="Microsoft.Portability" CheckId="CA1901" Status="Active" Created="2015-10-03 00:55:27Z" FixCategory="NonBreaking">
-             <Issue Name="Return" Certainty="95" Level="Error">As it is declared in your code, the return type of P/Invoke 'MainWindow.NativeMethods.GetWindowRect(IntPtr, ref MainWindow.NativeMethods.Rect)' will be 8 bytes wide on 64-bit platforms. This is not correct, as the actual native declaration of this API indicates it should be 4 bytes wide on 64-bit platforms. Consult the MSDN Platform SDK documentation for help determining what data type should be used instead of 'IntPtr'.</Issue>
+            <Message Id="return" TypeName="PInvokeDeclarationsShouldBePortable" Category="Microsoft.Portability" CheckId="CA1901" Status="Active" Created="2015-10-03 20:58:52Z" FixCategory="NonBreaking">
+             <Issue Name="Return" Certainty="95" Level="Error">As it is declared in your code, the return type of P/Invoke 'UIAutomation.NativeMethods.GetWindowRect(IntPtr, ref UIAutomation.NativeMethods.Rect)' will be 8 bytes wide on 64-bit platforms. This is not correct, as the actual native declaration of this API indicates it should be 4 bytes wide on 64-bit platforms. Consult the MSDN Platform SDK documentation for help determining what data type should be used instead of 'IntPtr'.</Issue>
             </Message>
            </Messages>
           </Member>
