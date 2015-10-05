@@ -34,7 +34,8 @@ namespace MinesweeperAI
 
         private void solveButtonClick(object sender, RoutedEventArgs e)
         {
-            ui.GetScreenshotModernApp();
+            Bitmap i = ui.GetScreenshotModernApp();
+            ui.ScrapeBoardFromImage(i);
         }
 
 

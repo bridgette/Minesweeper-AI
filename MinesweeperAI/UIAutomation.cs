@@ -55,6 +55,32 @@ namespace MinesweeperAI
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="img"></param>
+        /// <returns></returns>
+        public GameLogic ScrapeBoardFromImage(Bitmap img)
+        {
+            Bitmap diffBM = new Bitmap(img.Width, img.Height, System.Drawing.Imaging.PixelFormat.Format24bppRgb);
+
+            for (int y = 0; y < img.Height; y++)
+            {
+                for (int x = 0; x < img.Width; x++) {
+                    System.Drawing.Color c = img.GetPixel(x, y);
+
+                    if (c.B > 250) {
+                        System.Drawing.Color newcolor = System.Drawing.Color.FromArgb(97, 174, 255);
+
+                        diffBM.SetPixel(x, y, newcolor);
+                    }
+                }
+            }
+
+            diffBM.Save("c:\\users\\breiche\\pictures\\minesweeperWindowPrime.png", ImageFormat.Png);
+            return new GameLogic(0, 0);
+        }
+
         private bool FocusOnWindow()
         {
             bool wasSuccessful = false;
