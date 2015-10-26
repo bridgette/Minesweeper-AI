@@ -15,3 +15,12 @@ C:\Minesweeper\MinesweeperAI\MinesweeperAI\obj\Debug\MinesweeperAI_Content.g.cs
 C:\Minesweeper\MinesweeperAI\MinesweeperAI\bin\Debug\user32.dll
 C:\Minesweeper\MinesweeperAI\MinesweeperAI\bin\Debug\MinesweeperAI.exe.CodeAnalysisLog.xml
 C:\Minesweeper\MinesweeperAI\MinesweeperAI\bin\Debug\MinesweeperAI.exe.lastcodeanalysissucceeded
+c:\Minesweeper\MinesweeperAI\MinesweeperAI\bin\Debug\AForge.dll
+c:\Minesweeper\MinesweeperAI\MinesweeperAI\bin\Debug\AForge.Imaging.dll
+c:\Minesweeper\MinesweeperAI\MinesweeperAI\bin\Debug\AForge.Math.dll
+c:\Minesweeper\MinesweeperAI\MinesweeperAI\bin\Debug\AForge.pdb
+c:\Minesweeper\MinesweeperAI\MinesweeperAI\bin\Debug\AForge.xml
+c:\Minesweeper\MinesweeperAI\MinesweeperAI\bin\Debug\AForge.Imaging.pdb
+c:\Minesweeper\MinesweeperAI\MinesweeperAI\bin\Debug\AForge.Imaging.xml
+c:\Minesweeper\MinesweeperAI\MinesweeperAI\bin\Debug\AForge.Math.pdb
+c:\Minesweeper\MinesweeperAI\MinesweeperAI\bin\Debug\AForge.Math.xml

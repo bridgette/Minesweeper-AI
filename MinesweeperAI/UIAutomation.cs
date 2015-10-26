@@ -18,6 +18,11 @@ using System.Windows.Shapes;
 using System.Windows.Forms;
 using System.Runtime.Serialization;
 
+using AForge;
+using AForge.Imaging;
+using AForge.Imaging.Filters;
+using AForge.Math.Geometry;
+
 namespace MinesweeperAI
 {
     public class UIAutomation
@@ -55,6 +60,81 @@ namespace MinesweeperAI
             }
         }
 
+        // todo: implement this
+        //public IBlobsFilter BlobsFilter
+
+
+        /// <summary>
+        /// uses AForge to detect square (or rectangular, if tile is obscured) tiles in the image
+        /// </summary>
+        /// <param name="img"></param>
+        public void DetectBlobsInImage(Bitmap img)
+        {
+            BlobCounter blobCounter = new BlobCounter();
+            blobCounter.ProcessImage(img);
+            Blob[] blobs = blobCounter.GetObjectsInformation();
+
+            Graphics g = Graphics.FromImage(img);
+            System.Drawing.Pen bluePen = new System.Drawing.Pen(System.Drawing.Color.Blue, 10);
+
+            for (int i = 0, n = blobs.Length; i < n; i++)
+            {
+                try
+                {
+                    List<IntPoint> edgePoints = blobCounter.GetBlobsEdgePoints(blobs[i]);
+                    List<IntPoint> corners = PointsCloud.FindQuadrilateralCorners(edgePoints);
+
+                    SimpleShapeChecker shapeChecker = new SimpleShapeChecker();
+                    PolygonSubType subType = shapeChecker.CheckPolygonSubType(corners);
+                    if (subType == PolygonSubType.Square)
+                    {
+                        g.DrawPolygon(bluePen, PointsListToArray(corners));
+                    }
+                }
+                catch (Exception) { }
+            }
+
+            bluePen.Dispose();
+            g.Dispose();
+        }
+
+        // Convert list of AForge.NET's IntPoint to array of .NET's Point
+        private static System.Drawing.Point[] PointsListToArray(List<IntPoint> list)
+        {
+            System.Drawing.Point[] array = new System.Drawing.Point[list.Count];
+
+            for (int i = 0, n = list.Count; i < n; i++)
+            {
+                array[i] = new System.Drawing.Point(list[i].X, list[i].Y);
+            }
+
+            return array;
+        }
+
+        /// 
+        ///
+        public System.Drawing.Image CropHeaderFooter(System.Drawing.Image img, int headerHeight, int FooterHeight) {
+
+            int croppedWidth = img.Width;
+            int croppedHeight = img.Height - headerHeight - FooterHeight;
+            try
+            {
+                Bitmap target = new Bitmap(croppedWidth, croppedHeight);
+                using (Graphics g = Graphics.FromImage(target))
+                {
+                    g.DrawImage(img,
+                      new RectangleF(0, 0, croppedWidth, croppedHeight),
+                      new RectangleF(0, headerHeight, croppedWidth, croppedHeight),
+                      GraphicsUnit.Pixel);
+                }
+                return target;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(
+                  string.Format("Couldn't crop header and footer. Header height = {0}, footer height = {1}", headerHeight, FooterHeight), ex);
+            }
+        }
         /// <summary>
         /// 
         /// </summary>
@@ -62,22 +142,20 @@ namespace MinesweeperAI
         /// <returns></returns>
         public GameLogic ScrapeBoardFromImage(Bitmap img)
         {
-            Bitmap diffBM = new Bitmap(img.Width, img.Height, System.Drawing.Imaging.PixelFormat.Format24bppRgb);
+            // filter board's color to better identify tiles
+            Blur blur = new Blur();
+            blur.Threshold = 1;
+            blur.ApplyInPlace(img);
+            BrightnessCorrection brightness_filter = new BrightnessCorrection(-30);
+            brightness_filter.ApplyInPlace(img);
+            HSLFiltering luminance_filter = new HSLFiltering();
+            luminance_filter.Luminance = new Range(0.50f, 1);
+            luminance_filter.ApplyInPlace(img);
+            img.Save("c:\\users\\breiche\\pictures\\filtered.bmp", ImageFormat.Bmp);
 
-            for (int y = 0; y < img.Height; y++)
-            {
-                for (int x = 0; x < img.Width; x++) {
-                    System.Drawing.Color c = img.GetPixel(x, y);
+            DetectBlobsInImage(img);
+            img.Save("c:\\users\\breiche\\pictures\\blobs.bmp", ImageFormat.Bmp);
 
-                    if (c.B > 250) {
-                        System.Drawing.Color newcolor = System.Drawing.Color.FromArgb(97, 174, 255);
-
-                        diffBM.SetPixel(x, y, newcolor);
-                    }
-                }
-            }
-
-            diffBM.Save("c:\\users\\breiche\\pictures\\minesweeperWindowPrime.png", ImageFormat.Png);
             return new GameLogic(0, 0);
         }
 
